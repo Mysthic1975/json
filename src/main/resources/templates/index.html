@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>MyEntity Management</title>
 </head>
 <body>
-$END$
+<h1>MyEntity Management</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entity : ${entities}">
+        <td th:text="${entity.id}"></td>
+        <td th:text="${entity.name}"></td>
+        <td>
+            <a th:href="@{/edit/{id}(id=${entity.id})}">Edit</a>
+            <a th:href="@{/delete/{id}(id=${entity.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Create New Entity</h2>
+<form th:action="@{/create}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <button type="submit">Create</button>
+</form>
+
 </body>
 </html>
